@@ -1,20 +1,30 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { getOrders, addOrder, updateOrder, deleteOrder, getStats } = require("../controllers/orderController");
+const {
+  getOrders,
+  addOrder,
+  updateOrder,
+  deleteOrder,
+  getStats,
+  getPopularItems,
+  searchOrdersByItem,
+  getCustomerHistory
+} = require('../controllers/orderController');
 
-// GET all orders, optional filter by type/date
-router.get("/", getOrders);
+// GET routes
+router.get('/', getOrders);
+router.get('/stats', getStats);
+router.get('/stats/items', getPopularItems);
+router.get('/search/item', searchOrdersByItem);
+router.get('/customer/:phone', getCustomerHistory);
 
-// POST new order
-router.post("/", addOrder);
+// POST route - Create new order with items
+router.post('/', addOrder);
 
-// PUT update order by ID
-router.put("/:id", updateOrder);
+// PUT route - Update order with items
+router.put('/:id', updateOrder);
 
-// DELETE order by ID
-router.delete("/:id", deleteOrder);
-
-// GET stats
-router.get("/stats", getStats);
+// DELETE route
+router.delete('/:id', deleteOrder);
 
 module.exports = router;
